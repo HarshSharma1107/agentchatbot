@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { queryCDPDocs } from '../services/queryCDPDocs';
+import { queryCDPDocs } from '../backend/services/queryCDPDocs';
 
 interface ChatMessage {
   question: string;
