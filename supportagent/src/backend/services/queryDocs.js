@@ -17,7 +17,7 @@ export const fetchDocumentation = async (platform, query) => {
     Zeotang: 'https://docs.zeotap.com/home/en-us/',
   };
 
-  // Validate platform
+  //  Here we check the paltform if platform is wrong so show a error
   if (!platformUrls[platform]) {
     throw new Error(`Unsupported platform: ${platform}`);
   }
@@ -25,7 +25,7 @@ export const fetchDocumentation = async (platform, query) => {
   const baseUrl = platformUrls[platform];
 
   try {
-    // Fetch documentation HTML
+    // Here we Fetch documentation HTML
     const response = await axios.get(baseUrl, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
@@ -36,7 +36,6 @@ export const fetchDocumentation = async (platform, query) => {
     // Load HTML content into Cheerio
     const $ = cheerio.load(response.data);
 
-    // Extract relevant sections
     const sections = [];
     $('main, .content, .documentation-section').each((index, element) => {
       const title = $(element).find('h1, h2, h3').text() || 'Untitled Section';
@@ -47,7 +46,7 @@ export const fetchDocumentation = async (platform, query) => {
       }
     });
 
-    // Perform fuzzy search
+    // Here we perform the fuzzy search for the result
     const fuseOptions = {
       includeScore: true,
       threshold: 0.3,

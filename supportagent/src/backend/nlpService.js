@@ -1,7 +1,7 @@
 import { OpenAI } from 'openai';
 
 const openai = new OpenAI({
-  apiKey: 'YOUR_API_KEY',
+  apiKey: 'YOUR_API_KEY', // Here please enter your OpenAI key like sk:******* i  remove my key because of two many request.
 });
 
 /**
