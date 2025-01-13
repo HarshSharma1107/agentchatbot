@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
@@ -38,24 +38,42 @@ function App() {
   return (
     <div className="App">
       <h1>Documentation Chatbot</h1>
-      <input
-        type="text"
-        placeholder="Enter platform (e.g., Segment)"
-        value={platform}
-        onChange={(e) => setPlatform(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Enter your question"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <button onClick={handleQuerySubmit} disabled={loading}>
-        {loading ? 'Searching...' : 'Ask'}
-      </button>
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        handleQuerySubmit();
+      }}>
+        <div className="input-group">
+          <label htmlFor="platform">Platform:</label>
+          <input
+            type="text"
+            id="platform"
+            placeholder="Enter platform (e.g., Segment)"
+            value={platform}
+            onChange={(e) => setPlatform(e.target.value)}
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="query">Query:</label>
+          <input
+            type="text"
+            id="query"
+            placeholder="Enter your question"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Searching...' : 'Ask'}
+        </button>
+      </form>
 
       {error && <p className="error">{error}</p>}
-      {answer && <p className="answer">{answer}</p>}
+      {answer && (
+        <div className="answer-container">
+          <h2>Answer:</h2>
+          <p className="answer">{answer}</p>
+        </div>
+      )}
     </div>
   );
 }

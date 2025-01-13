@@ -13,12 +13,20 @@ h1 {
   color: #333;
 }
 
-input {
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.input-group input {
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  margin: 10px 0;
   width: 100%;
 }
 
@@ -43,11 +51,17 @@ button:hover:not(:disabled) {
 .error {
   color: red;
   text-align: center;
+  margin-bottom: 20px;
 }
 
-.answer {
-  margin-top: 20px;
-  padding: 15px;
+.answer-container {
   background-color: #e9f7ef;
   border: 1px solid #c8f7c5;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 4px;
+}
+
+.answer-container h2 {
+  margin-top: 0;
 }
