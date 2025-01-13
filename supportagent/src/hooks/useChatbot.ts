@@ -1,15 +1,20 @@
 import { useState } from 'react';
 import { queryCDPDocs } from '../services/queryCDPDocs';
 
+interface ChatMessage {
+  question: string;
+  answer: string;
+}
+
 const useChatbot = () => {
-  const [responses, setResponses] = useState<string[]>([]);
+  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
 
   const askQuestion = async (platform: string, question: string) => {
-    const answer = await queryCDPDocs(platform, question);
-    setResponses((prev) => [...prev, answer]);
+    const answers = await queryCDPDocs(platform, question);
+    setChatHistory((prev) => [...prev, { question, answer: answers[0] }]);
   };
 
-  return { responses, askQuestion };
+  return { chatHistory, askQuestion };
 };
 
 export default useChatbot;

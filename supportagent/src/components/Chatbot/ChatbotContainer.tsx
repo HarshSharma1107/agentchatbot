@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ChatInput from './ChatInput';
 import ChatOutput from './ChatOutput';
+import useChatbot from '../../hooks/useChatbot';
 
 const ChatbotContainer: React.FC = () => {
-  const [messages, setMessages] = React.useState<string[]>([]);
+  const { chatHistory, askQuestion } = useChatbot();
+  const [platform, setPlatform] = useState('Segment');
 
-  const handleNewMessage = (message: string) => {
-    setMessages((prev) => [...prev, message]);
+  const handleSendMessage = (message: string) => {
+    askQuestion(platform, message);
   };
 
   return (
     <div>
-      <ChatOutput messages={messages} />
-      <ChatInput onSend={handleNewMessage} />
+      <select value={platform} onChange={(e) => setPlatform(e.target.value)}>
+        <option value="Segment">Segment</option>
+        <option value="mParticle">mParticle</option>
+        <option value="Lytics">Lytics</option>
+        <option value="Zeotap">Zeotap</option>
+      </select>
+      <ChatOutput messages={chatHistory.map((c) => `${c.question}: ${c.answer}`)} />
+      <ChatInput onSend={handleSendMessage} />
     </div>
   );
 };
